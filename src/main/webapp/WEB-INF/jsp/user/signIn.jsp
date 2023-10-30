@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div id="login" class="d-flex align-items-center">
-	<form class="form-group">
+<div id="form-box" class="d-flex justify-content-center align-items-center w-100">
+	<form class="signInForm">
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text" id="id-addon">
-					<img src="./userIcon.png" width="20">
+					<img src="/static/img/userIcon.png" width="30">
 				</span>
 			</div>
 			<input type="text" class="form-control" placeholder="Username">
@@ -13,7 +13,7 @@
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text" id="password-addon">
-					<img src="./passwordIcon.png" width="20">
+					<img src="/static/img/passwordIcon.png" width="30">
 				</span>
 			</div>
 			<input type="text" class="form-control" placeholder="password">

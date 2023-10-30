@@ -17,4 +17,11 @@ public class UserController {
 		model.addAttribute("viewName", "user/signUp");
 		return "template/layout";
 	}
+	
+	@GetMapping("/sign-in-view")
+	public String signInView(Model model) {
+		// jsp에서 page 주소를 동적으로 변경하기 위해 주소의 경로를 model에 담아서 전송
+		model.addAttribute("viewName", "user/signIn");
+		return "template/layout";
+	}
 }
