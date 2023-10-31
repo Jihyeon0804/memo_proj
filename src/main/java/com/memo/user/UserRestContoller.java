@@ -49,6 +49,15 @@ public class UserRestContoller {
 		return result;
 	}
 	
+	
+	/**
+	 * 
+	 * @param loginId
+	 * @param password
+	 * @param name
+	 * @param email
+	 * @return
+	 */
 	@PostMapping("/sign-up")
 	public Map<String, Object> signUp(
 			@RequestParam("loginId") String loginId
@@ -78,4 +87,30 @@ public class UserRestContoller {
 		
 		return result;	// json
 	}
+	
+	@PostMapping("/sign-in")
+	public Map<String, Object> signIn(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("password") String password) {
+		
+		// db 조회
+		String hashedPassword = EncryptUtils.md5(password);
+//		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
+		Integer id = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
+		
+		// 응답값
+		// {"code" : 200, "result" : "성공"}
+		// {"code" : 500, "errorMessage" : "에러 이유"}
+		Map<String, Object> result = new HashMap<>();
+		if (id != null) {
+			result.put("code", 200);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+		}
+		
+		return result;
+	}
+	
 }

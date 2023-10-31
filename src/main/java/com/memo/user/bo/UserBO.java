@@ -33,4 +33,9 @@ public class UserBO {
 									.build());
 		return userEntity == null ? null : userEntity.getId();
 	}
+	
+	public Integer getUserEntityByLoginIdPassword(String loginId, String password) {
+		UserEntity userEntity =  userRepository.findByLoginIdAndPassword(loginId, password);
+		return userEntity == null ? null : userEntity.getId();
+	}
 }
