@@ -34,8 +34,13 @@ public class UserBO {
 		return userEntity == null ? null : userEntity.getId();
 	}
 	
-	public Integer getUserEntityByLoginIdPassword(String loginId, String password) {
+	
+	
+	// input : loginId, password(해싱된 password)
+	// output : id(pk) ; null 이거나 int
+	public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {
 		UserEntity userEntity =  userRepository.findByLoginIdAndPassword(loginId, password);
-		return userEntity == null ? null : userEntity.getId();
+//		return userEntity == null ? null : userEntity.getId();
+		return userEntity;
 	}
 }

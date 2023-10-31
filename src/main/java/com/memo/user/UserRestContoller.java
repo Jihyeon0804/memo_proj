@@ -3,6 +3,9 @@ package com.memo.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +26,7 @@ public class UserRestContoller {
 	// API 설계
 	
 	/**
-	 * 로그인 아이디 중복 환인 API
+	 * 로그인 아이디 중복 확인 API
 	 * @param loginId
 	 * @return
 	 * */
@@ -51,7 +54,7 @@ public class UserRestContoller {
 	
 	
 	/**
-	 * 
+	 * 회원가입 API
 	 * @param loginId
 	 * @param password
 	 * @param name
@@ -88,24 +91,40 @@ public class UserRestContoller {
 		return result;	// json
 	}
 	
+	
+	/**
+	 * 로그인 API
+	 * @param loginId
+	 * @param password
+	 * @return
+	 */
 	@PostMapping("/sign-in")
 	public Map<String, Object> signIn(
 			@RequestParam("loginId") String loginId
-			, @RequestParam("password") String password) {
+			, @RequestParam("password") String password
+			, HttpServletRequest request) {
 		
 		// db 조회
 		String hashedPassword = EncryptUtils.md5(password);
-//		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
-		Integer id = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
+		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
+//		Integer id = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
 		
 		// 응답값
 		// {"code" : 200, "result" : "성공"}
 		// {"code" : 500, "errorMessage" : "에러 이유"}
 		Map<String, Object> result = new HashMap<>();
-		if (id != null) {
+		if (user != null) {
+			// 로그인 처리
+			HttpSession session = request.getSession();
+			// session에 지금 로그인한 사람의 정보를 담음
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("userLoginId", user.getLoginId());
+			
 			result.put("code", 200);
 			result.put("result", "성공");
 		} else {
+			// 로그인 불가
 			result.put("code", 500);
 			result.put("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
 		}
