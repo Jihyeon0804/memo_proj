@@ -42,7 +42,7 @@ $(document).ready(function() {
 			return;
 		}
 
-		// AJAX
+		// AJAX - 응답값이 JSON
 		// form url, parasm
 		let url = $(this).attr('action');
 		let params = $(this).serialize();	// name 속성 반드시 있어야 함
