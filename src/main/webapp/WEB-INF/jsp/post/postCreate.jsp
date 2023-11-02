@@ -10,7 +10,7 @@
 		
 		<%-- 파일 업로드 --%>
 		<div class="d-flex justify-content-end my-4">
-			<input type="file" id="file">
+			<input type="file" id="file" accept=".jpg, .jpeg, .png, .gif">
 		</div>
 		
 		<%-- 목록, 지우기, 저장 버튼 --%>
@@ -43,7 +43,8 @@ $(document).ready(function() {
 	$('#saveBtn').on('click', function() {
 		let subject = $('#subject').val().trim();
 		let content = $('#content').val();
-		
+		let fileName = $('#file').val();	// C:\fakepath\chess-8348280_640.jpg
+
 		// validation check
 		if (!subject) {
 			alert("제목을 입력하세요.");
@@ -55,11 +56,27 @@ $(document).ready(function() {
 			return;
 		}
 		
+		// 파일이 업로드 된 경우에만 확장자 체크
+		if (fileName) {
+			// alert("파일 있음");
+			// C:\fakepath\chess-8348280_640.jpg
+			// 확장자만 뽑은 후 소문자로 변경한다.
+			let ext = fileName.split(".").pop().toLowerCase();
+			// alert(ext);
+			
+			if ($.inArray(ext, ['jpg', 'jpeg', 'png', 'gif']) == -1) {	// 배열에 해당 값이 없으면 -1 return
+				alert("이미지 파일만 업로드할 수 있습니다.");
+				$('#file').val("");	// 파일을 비운다.
+				return;
+			}
+		}
+		
 		// request param 구성
 		// 이미지 업로드 시 반드시 폼태그로(javascript로 폼태그 만들기)
 		let formData = new FormData();	// form 태그 생성
 		formData.append("subject", subject);	// key는 form태그의 name속성과 같고 Request Parameter명이 된다.
 		formData.append("content", content);
+		formData.append("file", $('#file')[0].files[0]);
 		
 		$.ajax({
 			// request

@@ -20,13 +20,10 @@
 					<td>${post.id}</td>
 					<td>${post.subject}</td>
 					<td>
-						<%-- ZonedDateTime -> Date -> String --%>
-						<fmt:parseDate value="${post.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedCreatedAt"/>
-						<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
+						<fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
 					</td>
 					<td>
-						<fmt:parseDate value="${post.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedUpdatedAt"/>
-						<fmt:formatDate value="${parsedUpdatedAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
+						<fmt:formatDate value="${post.updatedAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
 					</td>
 				</tr>
 			</c:forEach>
