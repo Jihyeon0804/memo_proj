@@ -18,7 +18,8 @@
 			<c:forEach items="${postList}" var="post">
 				<tr>
 					<td>${post.id}</td>
-					<td>${post.subject}</td>
+					<%-- 제목을 클릭하면 해당 글 내용 상세 화면으로 이동 --%>
+					<td><a href="/post/post-detail-view?postId=${post.id}">${post.subject}</a></td>
 					<td>
 						<fmt:formatDate value="${post.createdAt}" pattern="yyyy년 M월 d일 HH:mm:dd" />
 					</td>
