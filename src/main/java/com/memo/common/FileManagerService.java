@@ -18,7 +18,8 @@ public class FileManagerService {
 	
 	// 실제 업로드가 된 이미지가 저장될 경로(서버)
 	// !!경로 마지막에 반드시 / 붙이기!!
-	public static final String FILE_UPLOAD_PATH = "D:\\김지현\\5_spring_project\\memo\\workspace\\images/";
+//	public static final String FILE_UPLOAD_PATH = "D:\\김지현\\5_spring_project\\memo\\workspace\\images/";
+	public static final String FILE_UPLOAD_PATH = "C:\\Users\\cam08\\Desktop\\학원\\5_project\\memo\\workspace\\images/";
 	
 	// input : userLoginId, file(이미지)
 	// output : web imagePath

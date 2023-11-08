@@ -23,7 +23,7 @@
 		
 		<%-- 목록, 지우기, 저장 버튼 --%>
 		<div class="d-flex justify-content-between">
-			<button type="button" id="deleteBtn" class="btn btn-secondary">삭제</button>
+			<button type="button" id="deleteBtn" class="btn btn-secondary" data-post-id="${post.id}">삭제</button>
 			
 			<div>
 				<a href="/post/post-list-view" class="btn btn-dark">목록</a>
@@ -90,7 +90,6 @@ $(document).ready(function() {
 			// response
 			, success:function(data) {
 				if (data.code == 200) {
-					// 글 목록 화면으로 이동
 					alert("메모가 수정되었습니다.");
 					location.reload();
 				} else {
@@ -100,6 +99,31 @@ $(document).ready(function() {
 			}
 			, error:function(request, status, error) {
 				alert("글을 저장하는데 실패하였습니다.");
+			}
+		});
+	});
+	
+	// 삭제 버튼 클릭 시
+	$('#deleteBtn').on('click', function() {
+		let postId = $(this).data("post-id");
+		
+		$.ajax({
+			//request
+			type:"delete"
+			, url:"/post/delete"
+			, data:{"postId":postId}
+			
+			// response
+			, success:function(data) {
+				if (data.code == 200) {
+					alert("삭제가 완료되었습니다.");
+					location.href = "/post/post-list-view"
+				} else {
+					alert(data.errorMessage);
+				}
+			}
+			, error:function(request, status, error) {
+				alert("해당 글을 삭제하는데 실패하였습니다.");
 			}
 		});
 	});

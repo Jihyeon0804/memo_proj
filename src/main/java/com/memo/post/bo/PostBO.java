@@ -80,8 +80,8 @@ public class PostBO {
 			// 업로드 (로컬에 이미지 저장) ; 업로드 실패 => null 반환
 			imagePath = fileManager.saveFile(userLoginId, file);
 			
-			// 업로드 성공지 기존 이미지 제거(있으면)
-			if (imagePath == null && post.getImagePath() != null) {
+			// 업로드 성공 시 기존 이미지 제거(있으면)
+			if (imagePath != null && post.getImagePath() != null) {
 				// 업로드가 성공을 했고, 기존 이미지가 존재한다면 => 삭제
 				// 기존 이미지 제거 (imagePath 아님)
 				fileManager.deleteFile(post.getImagePath());
@@ -90,5 +90,11 @@ public class PostBO {
 		
 		// DB 글 update
 		postMapper.updatePostByPostIdUserId(postId, userId, subject, content, imagePath);
+	}
+	
+	// input : postId, userId
+	// output : X
+	public void deletePostByPostIdUserId(int postId, int userId) {
+		postMapper.deletePostByPostIdUserId(postId, userId);
 	}
 }
