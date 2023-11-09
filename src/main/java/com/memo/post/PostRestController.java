@@ -25,7 +25,6 @@ public class PostRestController {
 
 	/**
 	 * 글쓰기 API
-	 * 
 	 * @param subject
 	 * @param content
 	 * @param file
@@ -42,7 +41,7 @@ public class PostRestController {
 		// session에 들어있는 유저 id 꺼낸다.
 		// 후에 모든 페이지에 대해 로그인 여부 조회 과정을 거칠 것이므로
 		// Integer가 아닌 int형으로 지정
-		int userId = (int) session.getAttribute("userId");
+		int userId = (int)session.getAttribute("userId");
 		String userLoginId = (String) session.getAttribute("userLoginId");
 
 		// db insert
@@ -57,7 +56,6 @@ public class PostRestController {
 
 	/**
 	 * 글 수정 API
-	 * 
 	 * @param postId
 	 * @param subject
 	 * @param content
@@ -73,7 +71,7 @@ public class PostRestController {
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			HttpSession session) {
 
-		int userId = (int) session.getAttribute("userId");
+		int userId = (int)session.getAttribute("userId");
 		String userLoginId = (String) session.getAttribute("userLoginId");
 
 		// update
@@ -86,12 +84,19 @@ public class PostRestController {
 		return result;
 	}
 
+	
+	/**
+	 * 글 삭제 API
+	 * @param postId
+	 * @param session
+	 * @return
+	 */
 	@DeleteMapping("/delete")
 	public Map<String, Object> delete(
 			@RequestParam("postId") int postId,
 			HttpSession session) {
 
-		int userId = (int) session.getAttribute("userId");
+		int userId = (int)session.getAttribute("userId");
 		
 		// delete
 		postBO.deletePostByPostIdUserId(postId, userId);
